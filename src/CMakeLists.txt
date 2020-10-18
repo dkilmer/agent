@@ -1,0 +1,22 @@
+# select the 3D backend for sokol_gfx.h and sokol_app.h
+# the sokol_config() macro is in the top-level CMakeLists.txt file!
+sokol_config()
+
+fips_ide_group(Projects/agent)
+fips_begin_app(agent windowed)
+    fips_vs_warning_level(3)
+    fips_files(agent-main.c)
+    sokol_shader(agent-main.glsl ${slang})
+    fips_dir(data)
+    fipsutil_copy(agent-assets.yml)
+    fips_deps(sokol stb)
+fips_end_app()
+fips_begin_app(agent-ui windowed)
+    fips_vs_warning_level(3)
+    fips_files(agent-main.c)
+    sokol_shader(agent-main.glsl ${slang})
+    fips_dir(data)
+    fipsutil_copy(agent-assets.yml)
+    fips_deps(sokol cdbgui cimgui stb)
+fips_end_app()
+target_compile_definitions(agent-ui PRIVATE USE_DBG_UI)
