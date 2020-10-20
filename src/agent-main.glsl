@@ -29,6 +29,6 @@ void main() {
 }
 @end
 
-@program loadpng vs fs
+@program agent vs fs
 
 

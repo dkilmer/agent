@@ -32,9 +32,18 @@ void __cdbgui_shutdown(void) {
 }
 
 void __cdbgui_draw(void) {
+    #if defined(SOKOL_D3D11)
+        const char *title = "SOKOL_D3D11";
+    #elif defined(SOKOL_GLCORE33)
+        const char *title = "SOKOL_GLCORE33";
+    #elif defined(SOKOL_METAL)
+        const char *title = "SOKOL_METAL";
+    #else
+        const char *title = "sokol-gfx";
+    #endif
     simgui_new_frame(sapp_width(), sapp_height(), 1.0/60.0);
     if (igBeginMainMenuBar()) {
-        if (igBeginMenu("sokol-gfx", true)) {
+        if (igBeginMenu(title, true)) {
             igMenuItemBoolPtr("Buffers", 0, &sg_imgui.buffers.open, true);
             igMenuItemBoolPtr("Images", 0, &sg_imgui.images.open, true);
             igMenuItemBoolPtr("Shaders", 0, &sg_imgui.shaders.open, true);
